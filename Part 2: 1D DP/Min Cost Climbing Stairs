@@ -1,0 +1,148 @@
+Note : 
+1. This q is similar to Frog jump, in striver's sheet. as Frog jump is not on Leet, we decided to do this q. 
+2. The whole documentation is on leet discuss, whose link is : 
+https://leetcode.com/problems/min-cost-climbing-stairs/discuss/2121504/Java-4-Sol-or-Interview-Approach-or-Recusrion-DP-Memoization-Tabulation
+
+3. Basically, the above documentation hass 8 codes. Two diff sets of Recursion,Memo,Tabu and Space Optimized.
+4. Here, in git I am pasting the lastest one. 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 1: Recursion :
+
+**********************************************************************************************************************************************************
+
+Logic :
+
+    If n goes below 2 , we simply return 0, as it will go below 2 only after adding values at cost array index 0 or 1. 
+    So, when we add Cost[0] or cost[1], calling paralley solUtil(cost,0) or solUtil(cost, 1), will give wrong result. So, we return 0 for that case.
+
+***********************************************************************************************************************************************************
+
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+
+        int n=cost.length;
+        return solUtil(cost,n);
+    }
+    
+    public int solUtil(int[] cost,int n){
+        
+        if(n<2) return 0;
+        
+        if(n==2){
+           return Math.min(cost[0],cost[1]);
+        }
+        
+        int x=cost[n-1]+solUtil(cost,n-1);
+        int y=cost[n-2]+solUtil(cost,n-2);
+        
+        return Math.min(x,y) ;
+    }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2: Memoization
+
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        
+        int n=cost.length;
+        int dp[]=new int[n+1];
+        
+        Arrays.fill(dp,-1);
+   
+        solUtil(cost,n,dp);
+        return dp[n];
+        
+        
+    }
+    
+    public int solUtil(int[] cost,int n,int[] dp){
+        
+        if(dp[n]!=-1) return dp[n];
+        
+        if(n<2) return dp[n]=0;
+        
+        if(n==2){
+           return dp[n]=Math.min(cost[0],cost[1]);
+            
+        }
+  
+        int x=cost[n-1]+solUtil(cost,n-1,dp);
+        int y=cost[n-2]+solUtil(cost,n-2,dp);
+        
+        return dp[n]=Math.min(x,y) ;
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 3: Tabulation
+
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        
+        int n=cost.length;
+        int dp[]=new int[n+1];
+        
+        if(n<2) dp[n]=0;
+        
+        dp[2]=Math.min(cost[0],cost[1]);
+        
+        for(int i=3;i<=n;i++){
+            
+             int x=cost[i-1]+dp[i-1];
+             int y=cost[i-2]+dp[i-2];
+            
+             dp[i]=Math.min(x,y);
+        }
+        
+        
+        return dp[n];
+        
+        
+    }
+    
+   
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 4: Tabulation (Space Optimized)
+
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        
+        int n=cost.length;
+ 
+        if(n==2) return Math.min(cost[0],cost[1]);
+        
+        int firstStep=0;
+        int secondStep=Math.min(cost[0],cost[1]);
+        int currStep=0;
+        
+        for(int i=3;i<=n;i++){
+            
+             int x=cost[i-1]+ secondStep;
+             int y=cost[i-2]+ firstStep;
+            
+             
+        
+            
+             currStep=Math.min(x,y);
+            
+            firstStep=secondStep;
+            secondStep=currStep;
+        }
+        
+        
+        return currStep; 
+        
+    }
+
+}
+
