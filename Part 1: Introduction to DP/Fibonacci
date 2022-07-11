@@ -1,0 +1,118 @@
+Before we go into the solutions, if you want to do similar problems, try these :
+91. Decode Ways
+62. Unique Paths
+70. Climbing Stairs
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 1 : Recursion
+
+class Solution {
+    public int fib(int n) {
+	
+        if(n==0 || n==1) return n;
+        
+        else return fib(n-1) + fib(n-2);
+    }
+}
+
+Time Complexity : O(2^n)
+Space Complexity : O(n) (Space for recursive call stack)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2 : Dynamic Programming - Memoization (Top Down approach)
+
+class Solution {
+    
+    int[] dp=new int[0];
+    
+    public int fib(int n) {
+        
+        dp=new int[n+1];
+        Arrays.fill(dp,-1);
+        return solUtil(n);
+    }
+    
+    public int solUtil(int n){
+        
+        if(dp[n]!=-1) return dp[n];
+        
+        if(n==0 || n==1){
+            dp[n]=n;
+            return dp[n];
+        }
+        
+        int fib1=solUtil(n-1);
+        int fib2=solUtil(n-2);
+        
+        dp[n]=fib1+fib2;
+        
+        return dp[n];
+    }
+}
+
+Time Complexity : O(n)
+Space Complexity: O(n)
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 3 : Dynamic Programming - Tabulation (Bottom up Approach)
+
+class Solution {
+    
+    public int fib(int n) {
+        
+        if(n==0) return 0;
+        
+        int[] dp=new int[n+1];
+        
+        dp[0]=0;
+        dp[1]=1;
+        
+
+        for(int i=2;i<=n;i++){
+            dp[i]=dp[i-1]+dp[i-2];
+        }
+        
+        return dp[n];
+       
+    }
+
+}
+
+Time Complexity : O(n)
+Space Complexity: O(n)
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 4 : (Better space Complexity) Dynamic Programming - Tabulation (Bottom up Approach)
+
+In this, we are removing the array dp, that we were using in previous Dynamic Prog solutions.
+
+class Solution {
+    
+    public int fib(int n) {
+        
+        if(n<2) return n;
+ 
+        int prev2=0;
+        int prev1=1;
+
+        for(int i=2;i<=n;i++){
+            
+            int curr=prev2+prev1;
+            prev2=prev1;
+            prev1=curr;
+            
+        }
+        
+        return prev1;
+       
+    }
+   
+}
+
+Time Complexity : O(n)
+Space Complexity: O(1)
