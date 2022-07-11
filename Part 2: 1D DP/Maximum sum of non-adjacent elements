@@ -1,7 +1,18 @@
 
+Problem Link : 
+https://www.codingninjas.com/codestudio/problems/maximum-sum-of-non-adjacent-elements_843261?source=youtube&campaign=striver_dp_videos&leftPanelTab=0
 
+
+******************************************************************************************************************************************************
 
 Recursion Tree Image : 
+![image](https://user-images.githubusercontent.com/20686188/178340714-75ea809f-1bc4-4ce1-9beb-fb1e809ef98a.png)
+
+Explanation of Image : 
+1. Basically, we cant go to adjacent elements. Also, we need max subsequence. 
+2. Max subsequence will always inlcude either index 5 or 4. (As it is a postive array).
+3. So, our recursion tree will top-down from either 5 or 4. (I have made recursion tree for index=5)
+4. In case of 5, it can go to either 3,2,1,0. Similarly further (check the image.)
 
 
 
