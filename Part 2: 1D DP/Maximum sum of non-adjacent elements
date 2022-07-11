@@ -52,3 +52,52 @@ public class Solution {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Solution 2: Memoization 
+
+Explanation regarding base conditions : 
+
+1. In main, n==1 , means that array size is 1, so we simply return the only index available i.e 0th index.
+2. In solUtil, n==0 and n==1, we return nums.get(n), because in solUtil, we already calling by decreasing the size by 1 or 2. 
+
+**********************************************************
+
+import java.util.*;
+public class Solution {
+	public static int maximumNonAdjacentSum(ArrayList<Integer> nums) {
+		// Write your code here.
+        
+        int n=nums.size();
+        
+        if(n==1) return nums.get(0);
+
+        int[] dp=new int[n+1];
+        
+        Arrays.fill(dp,-1);
+ 
+        int result=Math.max(solUtil(n-1,nums,dp),solUtil(n-2,nums,dp));
+
+        return result;
+	}
+    
+    public static int solUtil(int n,ArrayList<Integer> nums,int[] dp){
+        
+        
+        
+        if(n==0) return nums.get(0);
+        if(n==1) return nums.get(1);
+        
+        if(dp[n]!=-1) return dp[n];
+
+        dp[0]=nums.get(0);
+        dp[1]=nums.get(1);
+        
+        int maxi=0;
+        
+        for(int i=n-2;i>=0;i--){
+            
+            maxi=Math.max(nums.get(n)+solUtil(i,nums,dp),maxi);
+        }
+        
+        return dp[n]=maxi;
+    }
+}
