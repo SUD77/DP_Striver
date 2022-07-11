@@ -1,7 +1,20 @@
 
+Problem Link : https://www.codingninjas.com/codestudio/problems/frog-jump_3621012?source=youtube&campaign=striver_dp_videos&leftPanelTab=0
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Logic for Recursion tree : 
+
+Check this image below and read the desc parallely. 
 
 ![image](https://user-images.githubusercontent.com/20686188/178294462-4c030e87-2f23-41e6-8477-366b8b8681de.png)
+
+Explanation :
+1. You have an array of 4. And you need to reach on N=4. For this, you should reach n-1 i.e 3. 
+2. And now, if you see the diagram. I have mentioned, how can you reach 3. Either from step 2 or step 1. And process follows till we reach step 0 on 
+all paths. 
+
+3. On all paths, cost has been calculated and path with sum of min cost is our required path. 
 
 
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
