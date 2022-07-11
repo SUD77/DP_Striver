@@ -1,0 +1,122 @@
+This problem is exactly Fibonacci Series. You can solve this problem too with same approaches : Fibonacci Number
+
+List of solutions to provide in Interview :
+
+    Naive sol (Recursion based)
+    DP - Memoization
+    DP - Tabulation
+    DP - Tabulation (with better space complexity)
+    
+    
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+
+Solution 1 : Recursion (Will give TLE)
+
+So, in interview, first solution that you need to provide is Naive one. In this case, it is Recursion based. Though Recursion is one of the solution but it will give TLE .
+
+class Solution {
+    public int climbStairs(int n) {
+        
+        if(n<=2){
+            return n;
+        }
+        
+        return climbStairs(n-1)+climbStairs(n-2);
+    }
+}
+
+Time Complexity : O(2^n)
+Space Complexity : O(n) (Space for recursive call stack )
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2: DP-Memoization (Top Down Approach)
+
+class Solution {
+    int[] dp=new int[0];
+    
+    public int climbStairs(int n) {
+        dp=new int[n+1];
+        Arrays.fill(dp,-1);
+        return solUtil(n);
+    }
+    
+    public int solUtil(int n){
+        
+        if(dp[n]!=-1){
+            return dp[n];
+        }
+        
+        if(n==1 || n==2){
+            dp[n]=n;
+            return dp[n];
+        }
+        
+        int fib1=solUtil(n-1);
+        int fib2=solUtil(n-2);
+        
+        dp[n]=fib1+fib2;
+        
+        return dp[n];
+    }
+}
+
+Time Complexity : O(n)
+Space Complexity : O(n)
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 3 : DP - Tabulation (Bottom up Approach)
+
+class Solution {
+
+    public int climbStairs(int n) {
+        
+        if(n==1) return 1;
+        
+        int[] dp=new int[n+1];
+       
+        dp[1]=1;
+        dp[2]=2;
+        
+        for(int i=3;i<=n;i++){
+            dp[i]=dp[i-1]+dp[i-2];
+        }
+        
+        return dp[n];
+    } 
+}
+
+Time complexity : O(n)
+Space Complexity: O(n)
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 4: (Better space Complexity) DP - Tabulation (Bottom up Approach)
+In this solution, we will eliminate the use of dp array, instead we will use two variables, prev1 and prev2.
+
+class Solution {
+    
+    public int climbStairs(int n) {
+        
+        if(n==1) return 1;
+
+        int prev2=1;
+        int prev1=2;
+        
+        for(int i=3;i<=n;i++){
+            int curr=prev2+prev1;
+            prev2=prev1;
+            prev1=curr;
+            
+        }
+        
+        return prev1;
+    }
+    
+}
+
+Time Complexity : O(n)
+Space Complexity : O(1)
