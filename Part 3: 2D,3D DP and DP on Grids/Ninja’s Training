@@ -1,0 +1,108 @@
+
+
+Recursion Tree Image : ![shivi](https://user-images.githubusercontent.com/20686188/178778036-426b18ed-f2d4-4312-852f-00f238461f56.jpg)
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Approach: 
+1. Start with last day (n-1th day) of points array.
+2. Initially we pass task=3, meaning initially no task has been done. 
+3. At each day, we evaluate max merit points by finding all possible ways
+    a. We call recursion for every task not matching with current task no, bcz same task cannot be repeated on consecutive days.
+    b. We add current merit points of current arr[day][task]
+    c. While calling the function, we pass the prev day as day-1, with task not matching in i=0 to 2.
+    d. We store maxi of all the func calls. and return maxi.
+4. BASE CASE- whenever we reach day 0, with task no. say x, it means task x has been performed previously.
+Thus we return max merit b/w other two tasks in day 0.
+
+
+Solution 1: Recursion 
+
+
+public class Solution {
+    public static int ninjaTraining(int n, int points[][]) {
+
+        return solUtil(n-1,points,n);
+    }
+    
+    public static int solUtil(int n,int points[][],int task){
+        if(n==0) {
+             int maxi=0;
+            for(int i=0;i<=2;i++){
+                if(i!=task){
+                    maxi=Math.max(maxi,points[0][i]);
+                }
+            }
+            return maxi;
+        }
+
+        int resultP=0;
+
+        for(int i=0;i<=2;i++){
+
+            int tempP=0;
+            if(i!=task){
+                tempP= points[n][i] + solUtil(n-1,points,i);
+                resultP=Math.max(tempP,resultP);
+            }
+            
+
+        }
+
+        return resultP;
+    }
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2 : Memoization 
+
+
+import java.util.Arrays;
+
+public class Solution {
+    public static int ninjaTraining(int n, int points[][]) {
+
+        int[][] dp=new int[n][4];
+        
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
+        }
+        
+        return solUtil(n-1,points,3,dp);
+    }
+    
+    public static int solUtil(int n,int points[][],int task,int[][] dp){
+        
+        if(dp[n][task]!=-1) return dp[n][task];        
+        
+        if(n==0) {
+             int maxi=0;
+            for(int i=0;i<=2;i++){
+                if(i!=task){
+                    maxi=Math.max(maxi,points[0][i]);
+                }
+            }
+            return dp[n][task]=maxi;
+        }
+
+        int resultP=0;
+
+        for(int i=0;i<=2;i++){
+
+            int tempP=0;
+            if(i!=task){
+                tempP= points[n][i] + solUtil(n-1,points,i,dp);
+                resultP=Math.max(tempP,resultP);
+            }
+            
+
+        }
+
+        return dp[n][task]= resultP;
+    }
+
+}
