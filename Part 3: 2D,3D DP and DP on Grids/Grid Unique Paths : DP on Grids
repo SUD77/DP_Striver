@@ -42,3 +42,47 @@ class Solution {
 Solution 2: Memoization
 *************************
 
+*************************************************************************************************************************************************************
+
+Image to explain dp matrix : ![image](https://user-images.githubusercontent.com/20686188/178886168-ad5c703a-8866-4f35-b54f-03530a80ec61.png)
+
+Explanation : 
+1. We have implemented memoization as bottom-up (instead of top-down).
+2. So, in this dp matrix, at any position i.e dp[i][j] stores the value, that represents no of ways to reach last position (i.e bottom right corner) from that 
+particular index i,j. 
+3. So, out final answer is stroed in dp[0][0]. As we want to know the no of ways from top left corner to bottom right corner. 
+
+*************************************************************************************************************************************************************
+
+class Solution {
+    public int uniquePaths(int m, int n) {
+     
+        int[][] dp=new int[m][n];
+        
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
+        }
+        
+        solUtil(m,n,0,0,dp);
+        
+        return dp[0][0];
+    }
+    
+    public int solUtil(int m,int n,int i,int j,int[][] dp){
+        
+        if(i==m-1 && j==n-1) return dp[i][j]=1;
+        if(i>=m || j>=n) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+        int count=0;
+        
+        count+=solUtil(m,n,i+1,j,dp);
+        count+=solUtil(m,n,i,j+1,dp);
+
+        
+        return dp[i][j]=count;
+        
+        
+    }
+}
+
