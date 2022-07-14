@@ -199,7 +199,49 @@ Solution 4: Tabulation - Space Optimmized
 *****************************************
 
 ***********************************************************************************************************************************************************
-
-
-
+ TC = O(m x n)  | SC = O(N)-> space of prev[] of size N=columns size
 ***********************************************************************************************************************************************************
+
+
+
+class Solution {
+    public int minPathSum(int[][] grid) {
+        
+   
+        int m=grid.length;
+        int n=grid[0].length;
+        
+        int prev[]=new int[n];
+        
+       
+        for(int i=m-1;i>=0;i--){
+            
+            int temp[]=new int[n];
+            
+            for(int j=n-1;j>=0;j--){
+                
+                if(i==m-1 && j==n-1){
+                   temp[j]=grid[i][j];
+                }else{
+                    
+                    int down=Integer.MAX_VALUE;
+                    int right=Integer.MAX_VALUE;
+                    
+                    if(i+1<m){
+                       down=prev[j]; 
+                    }
+                    
+                    if(j+1<n){
+                       right=temp[j+1]; 
+                    }
+                    
+                    temp[j]=grid[i][j]+Math.min(down,right);
+                }
+            }
+            prev=temp;
+        }
+        
+        return prev[0];
+    }
+    
+}
