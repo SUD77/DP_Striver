@@ -31,6 +31,42 @@ TC = O(2^ (MxN)) | SC= O(length of path) = O(m-1 + n-1) -> stack space will go l
 **************************************************************************************************************************
 
 
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        
+        int m=obstacleGrid.length;
+        int n=obstacleGrid[0].length;
+        
+        return solUtil(obstacleGrid,m,n,0,0);
+        
+    }
+    
+    
+
+    public int solUtil(int[][] nums,int m,int n,int i,int j){
+        
+       
+        
+        if(i>=m || j>=n) return 0;
+        if(nums[i][j]==1) return 0;    //obstacle
+        if(i==m-1 && j==n-1) return 1;
+        
+        int count=0;
+        
+        int right=solUtil(nums,m,n,i,j+1);
+        int down=solUtil(nums,m,n,i+1,j);
+        
+        
+        
+        count=right+down;
+        
+        
+        return count;
+    }
+}
+
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,6 +84,50 @@ TC = O(M x N) = No. of states |     SC= O(m-1 + n-1)            +  O(M x N)
 **************************************************************************************************************************
 
 
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        
+        int m=obstacleGrid.length;
+        int n=obstacleGrid[0].length;
+        
+        int[][] dp=new int[m][n];
+        
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
+        }
+        
+        solUtil(obstacleGrid,m,n,0,0,dp);
+        
+        return dp[0][0];
+        
+    }
+    
+    
+
+    public int solUtil(int[][] nums,int m,int n,int i,int j,int[][] dp){
+        
+
+        if(i>=m || j>=n) return 0;
+        
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+        if(nums[i][j]==1) return dp[i][j]=0;    //obstacle
+        if(i==m-1 && j==n-1) return dp[i][j]=1;
+        
+        
+        
+        int right=solUtil(nums,m,n,i,j+1,dp);
+        int down=solUtil(nums,m,n,i+1,j,dp);
+        
+        
+        
+        dp[i][j]=right+down;
+        
+        
+        return dp[i][j];
+    }
+}
+
 
 
 
@@ -64,3 +144,47 @@ Solution 1 : Tabulation
 
 **************************************************************************************************************************
 
+
+
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        
+        int m=obstacleGrid.length;
+        int n=obstacleGrid[0].length;
+        
+        int[][] dp=new int[m][n];
+        
+        for(int i=m-1;i>=0;i--){
+            
+            for(int j=n-1;j>=0;j--){
+                
+                if(obstacleGrid[i][j]==1){
+                    dp[i][j]=0;
+                }
+                else if(i==m-1 && j==n-1) {
+                    dp[i][j]=1;
+                }else{
+
+                    int up=0;
+                    int left=0;
+                    
+                    if(j+1<n){
+                       up=dp[i][j+1]; 
+                    }
+                    
+                    if(i+1<m){
+                         left=dp[i+1][j];
+                    }
+                   
+                    
+                    dp[i][j]=up+left;
+                }
+            }
+        }
+        
+        return dp[0][0];
+        
+    }
+    
+    
+}
