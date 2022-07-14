@@ -3,6 +3,10 @@ LeetLink : https://leetcode.com/problems/minimum-path-sum/
 
 
 
+Recursion Tree : ![Recu](https://user-images.githubusercontent.com/20686188/179062650-288c6da9-0168-406e-8b2f-26ab753e2e69.jpg)
+
+Explanation of Recursion Tree : 
+
 
 
 
@@ -65,6 +69,11 @@ Solution 2: Memoization
 
 Time Complexity: O(N*M)
 Space Complexity: O((M-1)+(N-1)) + O(N*M)
+
+
+Image of dp matrix: ![dp](https://user-images.githubusercontent.com/20686188/179062799-d69e756a-6f9c-4ca5-aaca-1d9d3f4ca54d.jpg)
+
+Explanation : 
 
 ***********************************************************************************************************************************************************
 
