@@ -1,5 +1,12 @@
 
 
+Problem Link : https://leetcode.com/problems/unique-paths/
+
+Recursion Tree : ![aaa](https://user-images.githubusercontent.com/20686188/178889868-fb9fb5da-4ecc-45e4-9efd-994c605251a6.jpg)
+
+Explanation : 
+1. Basicaly, we are moving either right or down till we reach the last block. So we try all possible paths.
+2. In this image, i have written the indices.
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
