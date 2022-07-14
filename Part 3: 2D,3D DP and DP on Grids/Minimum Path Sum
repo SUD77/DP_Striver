@@ -3,9 +3,14 @@ LeetLink : https://leetcode.com/problems/minimum-path-sum/
 
 
 
+************************************************************************************************************************************************************
+
 Recursion Tree : ![Recu](https://user-images.githubusercontent.com/20686188/179062650-288c6da9-0168-406e-8b2f-26ab753e2e69.jpg)
 
 Explanation of Recursion Tree : 
+1. I am applying recursion bottom up. 
+2. Basically, I start from index 0,0 and go till the bottom right, following diff paths (down and right only)
+3. And getting the minimum sum.
 
 
 
@@ -18,8 +23,11 @@ Solution 1: Recursion (will give TLE)
 
 ***********************************************************************************************************************************************************
 
+TC = O(2^ (MxN)) | SC= O(length of path) = O(m-1 + n-1) -> stack space will go length of path deeper 
 
 
+Note : 
+1. Line returning Integer.Max_value is very imp, as it eleiminates the initial large value and keeps min value. 
 ***********************************************************************************************************************************************************
 
 class Solution {
@@ -74,7 +82,12 @@ Space Complexity: O((M-1)+(N-1)) + O(N*M)
 Image of dp matrix: ![dp](https://user-images.githubusercontent.com/20686188/179062799-d69e756a-6f9c-4ca5-aaca-1d9d3f4ca54d.jpg)
 
 Explanation : 
+1. In this, baically, each index stores the min sum path possible to reach from it to the extreme bottom right.
+2. Final answer is stored in 0,0 as we want to see the min path sum from 0,0 to last block.
 
+
+Note:
+1. I have implemented, memo in bottom up fashion. 
 ***********************************************************************************************************************************************************
 
 
