@@ -1,0 +1,225 @@
+
+
+LeetLink : https://leetcode.com/problems/minimum-falling-path-sum/
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 1 : Recursion (Will give TLE)
+
+TC = O(3 ^ (N x M)) | SC= O(N) -> stack space will go upto length of rows deep
+
+********************************************************************************
+
+class Solution {
+    public int minFallingPathSum(int[][] matrix) {
+        
+        
+        int m=matrix.length;
+        int n=matrix[0].length;
+        
+        int result=Integer.MAX_VALUE;
+        
+        for(int col=0;col<n;col++){
+            
+            result=Math.min(solUtil(m,n,matrix,0,col),result);    
+        }
+        
+        return result;
+    }
+    
+    public int solUtil(int m,int n,int[][] matrix,int i,int j){
+        
+        
+        if( j>=n || j<0) return Integer.MAX_VALUE;
+
+        if(i==m-1) return matrix[i][j];
+
+        
+        int left=solUtil(m,n,matrix,i+1,j-1);
+        int down=solUtil(m,n,matrix,i+1,j);
+        int right=solUtil(m,n,matrix,i+1,j+1);
+
+        return  matrix[i][j]+Math.min(left,Math.min(down,right));
+    }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2 : Memoization
+
+ TC = O(N x M) = No. of states |  SC= O(N) ->stack space + O(N x M)->dp[][] space
+
+********************************************************************************
+
+
+class Solution {
+    public int minFallingPathSum(int[][] matrix) {
+        
+        
+        int m=matrix.length;
+        int n=matrix[0].length;
+        
+        int[][] dp=new int[m][n];
+        
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
+        }
+        
+        int result = Integer.MAX_VALUE;
+        for(int col=0;col<n;col++){
+            
+           
+            result=Math.min(solUtil(m,n,matrix,0,col,dp),result);
+            
+        }
+        
+        return result;
+    }
+    
+    public int solUtil(int m,int n,int[][] matrix,int i,int j,int[][] dp){
+        
+        
+        if( j>=n || j<0) return Integer.MAX_VALUE;
+        
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+
+        if(i==m-1) return dp[i][j]=matrix[i][j];
+
+        
+        int left=solUtil(m,n,matrix,i+1,j-1,dp);
+        int down=solUtil(m,n,matrix,i+1,j,dp);
+        int right=solUtil(m,n,matrix,i+1,j+1,dp);
+
+        return  dp[i][j]=matrix[i][j]+Math.min(left,Math.min(down,right));
+    }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 3 : Tabulation
+
+TC = O(N x M)) to compute dp[][] | SC= O(M x N) dp[][] space
+
+********************************************************************************
+
+
+class Solution {
+    public int minFallingPathSum(int[][] matrix) {
+        
+        
+        int m=matrix.length;
+        int n=matrix[0].length;
+        
+        int[][] dp=new int[m][n];
+        
+       
+        //basecase, when we are at last row. So filling col
+       for(int j=0;j<n;j++){
+           dp[m-1][j]=matrix[m-1][j];
+       }
+        
+        
+        for(int i=m-2;i>=0;i--){
+            
+            for(int j=0;j<n;j++){
+
+                int up=dp[i+1][j];
+
+                int left=0;
+                if(j-1>=0) left+=dp[i+1][j-1];
+                else left+=Integer.MAX_VALUE; 
+                
+              
+                int right=0;
+                if(j+1<n) right+=dp[i+1][j+1];
+                else right+=Integer.MAX_VALUE; ;
+                
+                dp[i][j]=matrix[i][j]+  Math.min(up,Math.min(left,right));
+            }
+        }
+        
+        int result=Integer.MAX_VALUE;
+        
+        for(int j=0;j<n;j++){
+            result=Math.min(result,dp[0][j]);
+        }
+
+        
+        return result;
+    }
+    
+   
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 4 :Tabulation - Space Optimized
+
+TC = O(N x M)  | SC = O(N)-> space of prev[] of size N =columns size
+
+********************************************************************************
+
+
+
+class Solution {
+    public int minFallingPathSum(int[][] matrix) {
+        
+        
+        int m=matrix.length;
+        int n=matrix[0].length;
+        
+        int[] prev=new int[n];
+        
+        
+        Arrays.fill(prev,0);
+        
+       
+        //basecase, when we are at last row. So filling col
+       for(int j=0;j<n;j++){
+           prev[j]=matrix[m-1][j];
+       }
+        
+        
+        for(int i=m-2;i>=0;i--){
+            
+            int[] curr=new int[n];
+            
+            for(int j=0;j<n;j++){
+
+                int up=prev[j];
+
+                int left=0;
+                if(j-1>=0) left+=prev[j-1];
+                else left+=Integer.MAX_VALUE; 
+                
+              
+                int right=0;
+                if(j+1<n) right+=prev[j+1];
+                else right+=Integer.MAX_VALUE; ;
+                
+                curr[j]=matrix[i][j]+  Math.min(up,Math.min(left,right));
+            }
+            prev=curr;
+        }
+        
+        int result=Integer.MAX_VALUE;
+        
+        for(int j=0;j<n;j++){
+            result=Math.min(result,prev[j]);
+        }
+
+        
+        return result;
+    }
+    
+   
+}
