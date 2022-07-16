@@ -2,7 +2,11 @@
 
 LeetLink : https://leetcode.com/problems/minimum-falling-path-sum/
 
+*************************************************************************************************************************************************************
 
+Dp Array Image : ![dsdf](https://user-images.githubusercontent.com/20686188/179344616-e01a2c0d-f500-47e1-93cb-352a1538623d.jpg)
+
+Expalanation : Explore all the paths from a index and store the min value possible for it on these paths at that index.
 
 
 
@@ -105,9 +109,16 @@ class Solution {
 
 Solution 3 : Tabulation
 
+*************************************************************************************************************************************************************
+
 TC = O(N x M)) to compute dp[][] | SC= O(M x N) dp[][] space
 
-********************************************************************************
+Explanation : 
+
+1. Bacially we are filling the dp array here top to bottom. 
+2. Before starting, we initialize the last row of dp (in first for loop)
+3. And second for loop, we start from m-2. and check for all possible paths for index in row = m-2. And store MIN value at index[m-2][col], col is from 0 to n.
+*************************************************************************************************************************************************************
 
 
 class Solution {
