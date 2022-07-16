@@ -177,6 +177,14 @@ Solution 4 :Tabulation - Space Optimized
 
 TC = O(N x M)  | SC = O(N)-> space of prev[] of size N =columns size
 
+
+Explanation of Space Optimization : 
+ 1. Bascially, we first create prev array of size of col length. and it initally sotres our base case.
+ 2. Because using base case we create other values, going up or down. 
+ 3. And within for loops, we create curr arrat of same col length. and it sores all the values calculated using base case values 
+ in prev array. 
+ 4. After every iteration of second for loop, we assign curr to prev. 
+
 ********************************************************************************
 
 
