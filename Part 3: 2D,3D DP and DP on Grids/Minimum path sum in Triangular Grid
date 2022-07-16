@@ -2,6 +2,12 @@
 
 Leetcode link : https://leetcode.com/problems/triangle/
 
+Dp Matrix Image : ![image](https://user-images.githubusercontent.com/20686188/179355388-df328374-beea-43a0-a483-fdcfd4703b3e.png)
+
+Expalanation of dp Matrix : 
+1. Baically we have to create a dp matrix of max row and col size. 
+2. Index in dp matrix will store the min sum possible for them. And our final answer is stored in first index, i.e 0,0
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -119,6 +125,15 @@ class Solution {
 Solution 4 : Space Optimization
 
  TC = O(N x N)  | SC = O(N)-> space of next[] of N=columns size
+ 
+ 
+ Explanation of Space Optimization : 
+ 1. Bascially, we first create prev array of size of col length. and it initally sotres our base case.
+ 2. Because using base case we create other values, going up or down. 
+ 3. And within for loops, we create curr arrat of same col length. and it sores all the values calculated using base case values 
+ in prev array. 
+ 4. After every iteration of second for loop, we assign curr to prev. 
+ 
 
 ***********************************************************************************************************************************************
 
