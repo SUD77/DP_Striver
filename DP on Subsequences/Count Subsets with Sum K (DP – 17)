@@ -1,0 +1,141 @@
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+******************************
+MY SOLUTION. 
+
+Note : 
+1. I wrote recursion solution. It worked, for all the test cases present and gave TLE (as expected)
+2. Then I built memo on it. But it gave 5/12 test cases as passed. 
+
+******************************
+Solution 1: Recursion (Will give TLE)
+
+
+import java.util.*;
+
+public class Solution {
+    
+    public static int findWays(int num[], int tar) {
+        // Write your code here..
+        List<List<Integer>> result=new ArrayList<>();
+        int n=num.length;
+        
+        solUtil(num,tar,n-1,new ArrayList(),result);
+        
+        return result.size();
+    }
+    
+    public static void solUtil(int[] num,int tar,int index,List<Integer> currentSet, List<List<Integer>> result){
+        
+        if(tar==0){
+            result.add(new ArrayList(currentSet));
+            return;
+        }
+        
+        if(index==0){
+            if(num[index]==tar){
+                currentSet.add(num[index]);
+                result.add(new ArrayList(currentSet));
+                
+            }
+            return;
+        }
+        
+        currentSet.add(num[index]);
+        if(tar>=num[index]){
+             
+             solUtil(num,tar-num[index],index-1,currentSet,result);
+        }
+       
+        
+        currentSet.remove(currentSet.size()-1);
+        solUtil(num,tar,index-1,currentSet,result);
+        
+    }
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2 : Memoization 
+
+Passed for only 5/12 cases in CodeNinja
+
+
+import java.util.*;
+
+public class Solution {
+    
+    public static int findWays(int num[], int tar) {
+        // Write your code here..
+        List<List<Integer>> result=new ArrayList<>();
+        int n=num.length;
+        
+        int dp[][]=new int[n][tar+1];
+        
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
+            
+        }
+        
+        solUtil(num,tar,n-1,new ArrayList(),result,dp);
+        
+        return result.size();
+    }
+    
+    public static int solUtil(int[] num,int tar,int index,List<Integer> currentSet, List<List<Integer>> result,int[][] dp){
+        
+         if(dp[index][tar]!=-1) return dp[index][tar];
+        
+        if(tar==0){
+            //dp[index][tar]=1;
+            result.add(new ArrayList(currentSet));
+            return 1;
+        }
+        
+       
+        
+        if(index==0){
+            if(num[index]==tar){
+               
+                currentSet.add(num[index]);
+                result.add(new ArrayList(currentSet));
+                return 1;
+                
+            }else{
+                return 0;
+            }
+          
+        }
+        
+        currentSet.add(num[index]);
+        int take=0;
+        if(tar>=num[index]){
+             
+             take=solUtil(num,tar-num[index],index-1,currentSet,result,dp);
+        }
+       
+        
+        currentSet.remove(currentSet.size()-1);
+        int notTake=solUtil(num,tar,index-1,currentSet,result,dp);
+        
+        if(take==0 && notTake==0){
+            dp[index][tar]=0;
+        }else{
+            dp[index][tar]=1;
+        }
+        
+        return dp[index][tar];
+        
+    }
+}
