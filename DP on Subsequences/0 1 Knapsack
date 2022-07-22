@@ -1,0 +1,67 @@
+
+
+Solution 1 : Recursion (Will give TLE)
+
+
+public class Solution{
+    static int knapsack(int[] weight, int[] value, int n, int maxWeight)     {
+        
+        return maxValue(weight,value,n,maxWeight);
+
+    }
+    
+    public static int maxValue(int[] weight, int[] value, int n, int W){
+        
+        if(n==0 || W==0) return 0;
+        
+        int notTake=maxValue(weight,value,n-1,W);
+        
+        int take=0;
+        if(weight[n-1]<=W){
+            take=value[n-1]+maxValue(weight,value,n-1,W-weight[n-1]);
+        }
+        
+        return Math.max(take,notTake);
+        
+    }
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2 : Memoization 
+
+import java.util.*;
+
+public class Solution{
+    static int knapsack(int[] weight, int[] value, int n, int maxWeight)     {
+        int[][] dp=new int[n+1][maxWeight+1];
+        
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
+        }
+        
+        return maxValue(weight,value,n,maxWeight,dp);
+
+    }
+    
+    public static int maxValue(int[] weight, int[] value, int n, int W,int[][] dp){
+        
+        
+        if(dp[n][W]!=-1) return dp[n][W];
+        
+        if(n==0 || W==0) return dp[n][W]=0;
+        
+        int notTake=maxValue(weight,value,n-1,W,dp);
+        
+        int take=0;
+        if(weight[n-1]<=W){
+            take=value[n-1]+maxValue(weight,value,n-1,W-weight[n-1],dp);
+        }
+        
+        return dp[n][W]=Math.max(take,notTake);
+        
+    }
+}
