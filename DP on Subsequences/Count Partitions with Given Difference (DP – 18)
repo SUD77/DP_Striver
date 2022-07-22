@@ -1,0 +1,130 @@
+
+Note : 
+1. Doing only 2 solutions right now, Recursion and Memoization. 
+2. This is exactly similar to the problem : Count Subsets with Sum K (DP – 17)
+3. In this cae, we just find the Sum k, by doing some modifications. 
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 1 : Recursion (Will give TLE)
+
+public class Solution {
+    
+    
+	public static int countPartitions(int n, int d, int[] arr) {
+		// Write your code here.
+        int totalSum=0;
+        
+        for(int i=0;i<n;i++){
+            totalSum+=arr[i];
+        }
+        
+        if(totalSum-d<0) return 0;
+        if((totalSum-d)%2==1) return 0;
+        
+        //this our target now
+        int s2=(totalSum-d)/2;
+        
+        return solUtil(n-1,arr,s2);
+        
+	}
+    
+    public static int solUtil(int index,int[] num,int target){
+        
+        if(index==0){
+            
+            if(target==0 && num[0]==0) return 2;
+            
+            if(target==0 || target==num[0]) return 1;
+            
+            return 0;
+        }
+        
+        int notTaken=solUtil(index-1,num,target);
+        
+        int taken=0;
+        
+        if(num[index]<=target){
+            taken=solUtil(index-1,num,target-num[index]);
+        }
+        
+        return taken+notTaken;
+        
+    }
+}
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2 : Memoization
+
+TC : O(N*K) || SC :(N*K) + O(N) 
+
+*******************************
+
+import java.util.*;
+
+public class Solution {
+    
+    static int mod =(int)(Math.pow(10,9)+7);
+	public static int countPartitions(int n, int d, int[] arr) {
+		// Write your code here.
+        int totalSum=0;
+        
+        for(int i=0;i<n;i++){
+            totalSum+=arr[i];
+        }
+        
+        if(totalSum-d<0) return 0;
+        if((totalSum-d)%2==1) return 0;
+        
+        //this our target now
+        int s2=(totalSum-d)/2;
+        
+        
+         int[][] dp=new int[n][s2+1];
+        
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
+        }
+        
+        return solUtil(n-1,arr,s2,dp);
+        
+	}
+    
+    public static int solUtil(int index,int[] num,int target,int[][] dp){
+        
+        if(index==0){
+            
+            if(target==0 && num[0]==0) return 2;
+            
+            if(target==0 || target==num[0]) return 1;
+            
+            return 0;
+        }
+        
+         if(dp[index][target]!=-1) return dp[index][target];
+        
+        int notTaken=solUtil(index-1,num,target,dp);
+        
+        int taken=0;
+        
+        if(num[index]<=target){
+            taken=solUtil(index-1,num,target-num[index],dp);
+        }
+        
+        return dp[index][target]=(taken+notTaken)%mod;
+        
+    }
+}
+
+
+
+
