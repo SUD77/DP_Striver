@@ -7,6 +7,14 @@ Note :
 2. Logic of recurison tree is , f(index,Weight) - to take it or not take it. 
 3. Also, Dp array, I have made of n+1, W+1 size. Their inital row, i.e dp[0][0...to...W] and dp[1...to....n][0] = 0;
 
+Recursion Tree : 
+![recurion](https://user-images.githubusercontent.com/20686188/180598706-32206241-077d-4c68-855c-6718e23be4bc.jpg)
+
+
+Dp matrix will look like this : 
+![image](https://user-images.githubusercontent.com/20686188/180598792-cef70c8c-6d60-4416-b3dc-b14ed12131fe.png)
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Solution 1 : Recursion (Will give TLE)
