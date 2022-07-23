@@ -1,7 +1,9 @@
 LeetCode Link : https://leetcode.com/problems/coin-change/
 
 
-
+Note : 
+1. If has a very good Logic for the case index==0. Do check stivers video for it. Just remember, that we shouldnt return 0 in base condition
+as in final answer we require Math.min , so, if we return 0 in base condition, it will always give 0 as answer.
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
