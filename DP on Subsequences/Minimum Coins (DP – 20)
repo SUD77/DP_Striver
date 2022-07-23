@@ -49,6 +49,10 @@ class Solution {
 
 Solution 2: Memoization
 
+TC : O(N*A), A is amount
+SC : O(N*A) + O(N)
+
+***************************
 
 class Solution {
     public int coinChange(int[] coins, int amount) {
@@ -97,6 +101,10 @@ class Solution {
 
 Solution 3: Tabulation
 
+TC : O(N*A), A is amount
+SC : O(N*A) 
+
+***************************
 
 class Solution {
     public int coinChange(int[] coins, int amount) {
