@@ -36,3 +36,37 @@ public class Solution {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Solution 2: Memoization
+
+
+import java.util.*;
+
+public class Solution {
+    public static int unboundedKnapsack(int n, int w, int[] profit, int[] weight) {
+        // Write your code here.
+        
+        int[][] dp=new int[n+1][w+1];
+        
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
+        }
+        
+        return maxValue(n,w,profit,weight,dp);
+    }
+    
+    public static int maxValue(int n,int w,int[] profit,int[] weight,int[][] dp){
+        
+        if(dp[n][w]!=-1) return dp[n][w];
+        
+        if(n==0 || w==0) return dp[n][w]=0;
+        
+        int notTake=maxValue(n-1,w,profit,weight,dp);
+        
+        int take=0;
+        if(weight[n-1]<=w){
+            take=profit[n-1]+maxValue(n,w-weight[n-1],profit,weight,dp);
+        }
+        
+        return dp[n][w]=Math.max(take,notTake);
+    }
+}
+
