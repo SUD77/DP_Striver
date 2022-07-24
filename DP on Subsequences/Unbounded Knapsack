@@ -1,0 +1,38 @@
+
+Note : 
+1. Question is similar to 01 knapsack. 
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 1: Recursion (Will give TLE)
+
+
+
+public class Solution {
+    public static int unboundedKnapsack(int n, int w, int[] profit, int[] weight) {
+        // Write your code here.
+        
+        return maxValue(n,w,profit,weight);
+    }
+    
+    public static int maxValue(int n,int w,int[] profit,int[] weight){
+        
+        if(n==0 || w==0) return 0;
+        
+        int notTake=maxValue(n-1,w,profit,weight);
+        
+        int take=0;
+        if(weight[n-1]<=w){
+            take=profit[n-1]+maxValue(n,w-weight[n-1],profit,weight);
+        }
+        
+        return Math.max(take,notTake);
+    }
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2: Memoization
