@@ -1,7 +1,8 @@
 
 
 Note : 
-
+1. Have written the intuition in Recursion part of it. Look below in Recursion part.
+2. Question is similar to Coins Change (Minimum coins) problem. Both have logic for base case. 
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -9,6 +10,10 @@ Note :
 Solution 1: Recursion (Will give TLE)
 
 Note : 
+1. For this, our index starts from size n and goes till index==1, as index=0 wont be there, as these array index represent the length of rod. 
+2. But in price we have to add, price[index-1], otherwise it will give error ArrayOutIndex.
+3. In base case, when we last index (of available length i.e index=1), we need to check if using that length multiple times we can build the log,
+so thats why we handle base case as, n%index and add the price accordingly. 
 
 
 
