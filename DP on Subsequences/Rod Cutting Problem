@@ -54,3 +54,52 @@ public class Solution {
         
     }
 }
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2 : Memoization 
+
+
+import java.util.*;
+
+public class Solution {
+	public static int cutRod(int price[], int n) {
+		// Write your code here.
+        int index=n;
+        
+        int[][] dp=new int[index+1][n+1];
+        
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
+        }
+        
+        return solUtil(index,price,n,dp);
+	}
+    
+    public static int solUtil(int index,int price[],int n,int[][] dp){
+        
+        
+        if(index==1){
+            
+            if(n%index==0) return (n/index)*price[index-1];
+            else return 0;
+        }
+        
+        if(dp[index][n]!=-1) return dp[index][n];
+        
+        int notTaken=solUtil(index-1,price,n,dp);
+        
+        int taken=0;
+        
+        if(n>=index){
+            taken=price[index-1]+solUtil(index,price,n-index,dp);
+        }
+        
+        
+        return dp[index][n]=Math.max(taken,notTaken);
+        
+        
+    }
+}
