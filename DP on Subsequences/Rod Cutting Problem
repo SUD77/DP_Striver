@@ -1,0 +1,51 @@
+
+
+Note : 
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 1: Recursion (Will give TLE)
+
+Note : 
+
+
+
+
+**********************************************************************************************************************
+
+public class Solution {
+	public static int cutRod(int price[], int n) {
+		// Write your code here.
+        int index=n;
+        
+        return solUtil(index,price,n);
+	}
+    
+    public static int solUtil(int index,int price[],int n){
+        
+        
+        if(index==1){
+            
+            
+            /*Important case*/
+            
+            if(n%index==0) return (n/index)*price[index-1];
+            else return 0;
+        }
+        
+        int notTaken=solUtil(index-1,price,n);
+        
+        int taken=0;
+        
+        if(n>=index){
+            taken=price[index-1]+solUtil(index,price,n-index);
+        }
+        
+        
+        return Math.max(taken,notTaken);
+        
+        
+    }
+}
