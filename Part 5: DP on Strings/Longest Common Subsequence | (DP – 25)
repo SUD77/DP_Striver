@@ -126,3 +126,58 @@ class Solution {
     
     
 }
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 4: Space Optimization
+
+***********************************************************************************************************************************************************
+Note : Here, some diff kind of space optimization has been used. 
+1. Curr has been decalred outside for loop i.e it is not local for FOR loops.
+2. Using clone to copy curr value to prev.
+3. And in Math.max we are using before value of curr too. (That's why we are cloning it to rpevand not declaring inside it for loop, other wise it will reomove 
+it previous values after every iteration)
+
+
+*************************************************************************************************************************************************************
+
+
+
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+     
+        int len1=text1.length();
+        int len2=text2.length();
+        
+        
+        int[] prev=new int[len2+1];
+        
+        int[] curr=new int[len2+1];
+       
+        
+        for(int i=1;i<=len1;i++){
+            
+            
+            
+            for(int j=1;j<=len2;j++){
+                
+                if(text1.charAt(i-1)==text2.charAt(j-1)) 
+                {
+                    curr[j]=1+prev[j-1];
+                }else{
+                    curr[j]=Math.max(prev[j],curr[j-1]);
+                }
+        
+               
+       
+            }
+             prev=(int[])(curr.clone());
+        }
+        
+        return prev[len2];
+    }
+    
+    
+}
