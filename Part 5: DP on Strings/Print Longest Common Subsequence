@@ -5,4 +5,10 @@ NOTE (IMP) :
 4. So, as of right now, I dont know how to solve this q by recursion only. 
 5. Here, I have used the tabulation code of the q "Longest common subsequence" and added some extra logic in it to print "LCS".
 
-LeetCode Link : 
+LeetCode Link : https://leetcode.com/problems/longest-common-subsequence/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution :
+
+
