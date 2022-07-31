@@ -1,0 +1,23 @@
+Leetcode link: https://leetcode.com/problems/delete-operation-for-two-strings/
+
+
+Note : 
+1. Question is totally based on LCS. 
+2. That's why I am writing only recursion and Memoization here. Rest of the methods can be taken from LCS and modified accrodingly. 
+
+Approach: 
+1. Basically, we need to delete those characters from the two strings which are not common in both. 
+2. So, remove common portion from length of both strings.
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 1: Recursion
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2: Memoization
