@@ -3,6 +3,7 @@ Leetcode link : https://leetcode.com/problems/distinct-subsequences/
 Note : 
 1. In tabulation, some shifting of indexes is required as unlike in memo, index cant go below 0. Check striver's video/ sol for understainding.
 2. I will add recursion tree image and dp array image during second iteration. 
+3. Also, not doing space optimization right now, will do in second iteration. 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
