@@ -1,7 +1,13 @@
 LeetCode link : https://leetcode.com/problems/edit-distance/
 
 
+Note : 
 
+1. In recursion tree, f(index1,index2) means that, in how many min no of steps,  string1[0....index1] will be converted to s2[0..index2]. For example,
+we have string s1="horse" and s2="ros" . And we call f(1,0), this means that, in how many Min steps, s1="ho" will be converted to s2="r" . Answer will be 2
+(by 1 delete and 1 replace). 
+
+2. Similar logic applies to dp[index1][index2] array too. 
 
 
 
