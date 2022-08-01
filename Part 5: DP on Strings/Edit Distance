@@ -9,6 +9,11 @@ we have string s1="horse" and s2="ros" . And we call f(1,0), this means that, in
 
 2. Similar logic applies to dp[index1][index2] array too. 
 
+3. For Tabulation, 
+    :- some shifting of index is done. As if call f(index1,index2), these indexes can go less than 0 too (as mentioned in our base fro memoization).
+But in case of storing these values in dp array, this can create problem. That's why we shift the index by +1. (Shifitng by +1 can be done in memo itself, but 
+I kept the recursion base case as it is and converted that into memo)
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
