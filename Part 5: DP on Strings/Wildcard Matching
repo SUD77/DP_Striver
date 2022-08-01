@@ -1,0 +1,62 @@
+Leetcode link: https://leetcode.com/problems/wildcard-matching/
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 1 : Recursion
+
+class Solution {
+    public boolean isMatch(String s, String p) {
+        
+        int len1=s.length();
+        int len2=p.length();
+        
+        return solUtil(s,p,len1-1,len2-1);
+    }
+    
+    public boolean solUtil(String s,String p,int index1,int index2){
+        
+        //when p is exhausted
+        if(index1<0 && index2<0) return true;
+        if(index1>=0 && index2<0) return false;
+        
+        //when s is exhausted but p has not, so if p has all stars, true. 
+        if(index1<0 && index2>=0){
+            
+            for(int i=0;i<=index2;i++){
+                if(p.charAt(i)!='*') return false;
+            }
+            return true;
+        }
+        
+        
+        if(s.charAt(index1)==p.charAt(index2) || p.charAt(index2)=='?'){
+            return solUtil(s,p,index1-1,index2-1);
+        }
+        
+        if(p.charAt(index2)=='*'){
+            
+            // fist case is if i take * as empty
+            //second case we match it to letters of s.
+            return solUtil(s,p,index1,index2-1) || solUtil(s,p,index1-1,index2);
+        }
+        
+        return false;
+    }
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2 : Memoization
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 3 : Tabulation
