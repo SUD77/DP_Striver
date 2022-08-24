@@ -1,0 +1,13 @@
+
+
+Partition DP Rules : 
+
+1. Start with entire block/array. f(i,j)
+2. Try all Partitions
+3. Return all best possible 2 partitions. 
+
+To check the explanation of these rules by striver, go to this video and around the timestamp 16 to 19. 
+[https://www.youtube.com/watch?v=vRVfmbCFW7Y]
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
