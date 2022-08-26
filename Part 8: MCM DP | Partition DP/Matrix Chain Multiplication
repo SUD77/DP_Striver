@@ -11,3 +11,35 @@ To check the explanation of these rules by striver, go to this video and around 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+Solution 1 : Recursion
+
+class Solution{
+    static int matrixMultiplication(int N, int arr[])
+    {
+        // code here
+        
+        return solUtil(1,N-1,arr);
+    }
+    
+    public static int solUtil(int i,int j,int[] arr){
+        
+        if(i==j) return 0;
+        
+        int mini=Integer.MAX_VALUE;
+        
+        for(int k=i;k<j;k++){
+            
+            int steps = arr[i-1]*arr[k]*arr[j] + solUtil(i,k,arr) + solUtil(k+1,j,arr);
+            if(steps < mini) mini =steps;
+        }
+        
+        return mini;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Solution 1 : Recursion
