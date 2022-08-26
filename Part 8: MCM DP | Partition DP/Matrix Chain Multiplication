@@ -45,6 +45,11 @@ class Solution{
 Solution 2 : Memoization
 
 
+TC - O(N*N) * N = O(N^3)
+SC - O(N^2) + O(N)
+
+
+********************************************************
 class Solution{
     static int matrixMultiplication(int N, int arr[])
     {
