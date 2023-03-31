@@ -1,6 +1,4 @@
-
-Note : 
-1. Doing only 2 solutions right now, Recursion and Memoization. 
+Link : https://www.codingninjas.com/codestudio/problems/number-of-subsets_3952532?source=youtube&campaign=striver_dp_videos&leftPanelTab=0
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,5 +93,45 @@ public class Solution {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Solution 2 : Tabulation
+
+TC : O(N*K) || SC :(N*K) 
+
+*******************************
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static int findWays(int num[], int tar) {
+        // Write your code here..
+        int n=num.length;
+
+        int[][] dp=new int[n][tar+1];
+
+        for(int i=0;i<=tar;i++){
+            if(i==0 && num[0]==0) dp[0][i]=2;
+            else if(num[0]==i || i==0) dp[0][i]=1;
+        }
+
+        for(int i=1;i<n;i++){
+
+            for(int j=0;j<=tar;j++){
+
+                int notPick=dp[i-1][j]; 
+
+                int pick=0;
+                if(j>=num[i]){
+                    pick=dp[i-1][j-num[i]];                 }
+
+                dp[i][j]=pick+notPick;
+
+            }
+        }
+
+        return dp[n-1][tar];  
+    }
 
 
+}
