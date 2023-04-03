@@ -14,24 +14,29 @@ leng of LCS till len of 2 of str1 and len of str2.
 
 Solution 1: Recursion
 
+// TC - O(2^len1 * 2^len2)
+// SC - O(len1 + len2) + O(len1 * len2)
 
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
-     
+        
         int len1=text1.length();
         int len2=text2.length();
         
-        return solUtil(text1,text2,len1-1,len2-1);
+        return solUtil(text1,text2,0,0);
     }
-    
-    public int solUtil(String text1,String text2, int index1,int index2){
+
+    public int solUtil(String text1, String text2,int i,int j){
         
-        if(index1<0 || index2<0) return 0;
+        if(i==text1.length() || j==text2.length()){
+            return 0;
+        }
         
-        if(text1.charAt(index1)==text2.charAt(index2)) 
-            return 1+solUtil(text1,text2,index1-1,index2-1);
+        if(text1.charAt(i)==text2.charAt(j)){
+            return 1+solUtil(text1,text2,i+1,j+1);
+        }
         
-        return 0+Math.max(solUtil(text1,text2,index1-1,index2),solUtil(text1,text2,index1,index2-1));
+        return Math.max(solUtil(text1,text2,i+1,j),solUtil(text1,text2,i,j+1)); 
     }
 }
 
@@ -41,35 +46,37 @@ class Solution {
 
 Solution 2: Memoization
 
+// TC - O(len1 * len2)
+// SC - O(len1 + len2) + O(len1 * len2)
 
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
-     
+        
         int len1=text1.length();
         int len2=text2.length();
         
-        
-        int[][] dp=new int[len1+1][len2+1];
+        int[][] dp=new int[len1][len2];
         
         for(int[] x:dp){
             Arrays.fill(x,-1);
         }
         
-        return solUtil(text1,text2,len1-1,len2-1,dp);
+        return solUtil(text1,text2,0,0,dp);
     }
-    
-    public int solUtil(String text1,String text2, int index1,int index2,int[][] dp){
+
+    public int solUtil(String text1, String text2,int i,int j,int[][] dp){
         
+        if(i==text1.length() || j==text2.length()){
+            return 0;
+        }
         
-        if(index1<0 || index2<0) return 0;
+        if(dp[i][j]!=-1) return dp[i][j]; 
         
-        if(dp[index1][index2]!=-1) return dp[index1][index2];
+        if(text1.charAt(i)==text2.charAt(j)){
+            return 1+solUtil(text1,text2,i+1,j+1,dp);
+        }
         
-        if(text1.charAt(index1)==text2.charAt(index2)) 
-            return dp[index1][index2]=1+solUtil(text1,text2,index1-1,index2-1,dp);
-        
-        
-        return dp[index1][index2]= 0+Math.max(solUtil(text1,text2,index1-1,index2,dp),solUtil(text1,text2,index1,index2-1,dp));
+        return dp[i][j]= Math.max(solUtil(text1,text2,i+1,j,dp),solUtil(text1,text2,i,j+1,dp)); 
     }
 }
 
@@ -80,51 +87,44 @@ Solution 3: Tabulation
 
 
 
+//Tabulation 
+// TC - O(len1 * len2)
+// SC - O(len1 * len2)
+
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
-     
+        
         int len1=text1.length();
         int len2=text2.length();
         
-        
         int[][] dp=new int[len1+1][len2+1];
         
-        
-       
-        for(int i=0;i<len2;i++){
-           
-                dp[0][i]=0;
-          
+        for(int i=0;i<=len2;i++){
+            dp[len1][i]=0;
         }
         
-        
-        
-        for(int i=0;i<len1;i++){
-                dp[i][0]=0;
-            
+        for(int j=0;j<=len1;j++){
+            dp[j][len2]=0;
         }
         
-        
-        for(int i=1;i<=len1;i++){
+        for(int i=len1-1;i>=0;i--){
             
-            
-            for(int j=1;j<=len2;j++){
+            for(int j=len2-1;j>=0;j--){
                 
-                if(text1.charAt(i-1)==text2.charAt(j-1)) 
-                {
-                    dp[i][j]=1+dp[i-1][j-1];
+                if(text1.charAt(i)==text2.charAt(j)){
+                    dp[i][j]=1+dp[i+1][j+1]; 
                 }else{
-                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                    dp[i][j]= Math.max(dp[i+1][j],dp[i][j+1]); 
                 }
-        
-       
+
+                
             }
         }
         
-        return dp[len1][len2];
+        
+        return dp[0][0]; 
     }
-    
-    
+
 }
 
 
@@ -133,51 +133,44 @@ class Solution {
 
 Solution 4: Space Optimization
 
-***********************************************************************************************************************************************************
-Note : Here, some diff kind of space optimization has been used. 
-1. Curr has been decalred outside for loop i.e it is not local for FOR loops.
-2. Using clone to copy curr value to prev.
-3. And in Math.max we are using before value of curr too. (That's why we are cloning it to rpevand not declaring inside it for loop, other wise it will reomove 
-it previous values after every iteration)
-
-
-*************************************************************************************************************************************************************
-
-
+//Sapce Optimization
+// TC - O(len1 * len2)
+// SC - O(len2)
 
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
-     
+        
         int len1=text1.length();
         int len2=text2.length();
         
-        
         int[] prev=new int[len2+1];
         
-        int[] curr=new int[len2+1];
-       
         
-        for(int i=1;i<=len1;i++){
-            
-            
-            
-            for(int j=1;j<=len2;j++){
-                
-                if(text1.charAt(i-1)==text2.charAt(j-1)) 
-                {
-                    curr[j]=1+prev[j-1];
-                }else{
-                    curr[j]=Math.max(prev[j],curr[j-1]);
-                }
-        
-               
-       
-            }
-             prev=(int[])(curr.clone());
+        for(int i=0;i<=len2;i++){
+            prev[i]=0;
         }
         
-        return prev[len2];
+        prev[len2]=0;
+        
+        for(int i=len1-1;i>=0;i--){
+            
+            int[] curr=new int[len2+1];
+            
+            for(int j=len2-1;j>=0;j--){
+                
+                if(text1.charAt(i)==text2.charAt(j)){
+                    curr[j]=1+prev[j+1]; 
+                }else{
+                    curr[j]= Math.max(prev[j],curr[j+1]); 
+                }
+
+                
+            }
+            prev=curr;
+        }
+        
+        
+        return prev[0]; 
     }
-    
-    
+
 }
